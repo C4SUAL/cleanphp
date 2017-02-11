@@ -1,6 +1,6 @@
 <?php
 
-namespace CleanPhp\Invoicer\Persistence\Zend\TableGateway;
+namespace CleanPhp\Invoicer\Persistence\Zend\DataTable;
 
 use CleanPhp\Invoicer\Domain\Repository\InvoiceRepositoryInterface;
 

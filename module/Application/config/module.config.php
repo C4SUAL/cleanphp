@@ -7,6 +7,8 @@
 
 namespace Application;
 
+use Application\Controller\CustomersController;
+use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -29,7 +31,7 @@ return [
                 'options' => [
                     'route' => '/customers',
                     'defaults' => [
-                        'controller' => Controller\Customers::class,
+                        'controller' => Controller\CustomersController::class,
                         'action' => 'index',
                     ],
                 ]
@@ -39,7 +41,7 @@ return [
                 'options' => [
                     'route' => '/orders',
                     'defaults' => [
-                        'controller' => Controller\Orders::class,
+                        'controller' => Controller\OrdersController::class,
                         'action' => 'index',
                     ],
                 ]
@@ -49,7 +51,7 @@ return [
                 'options' => [
                     'route' => '/invoices',
                     'defaults' => [
-                        'controller' => Controller\Invoices::class,
+                        'controller' => Controller\InvoicesController::class,
                         'action' => 'index',
                     ],
                 ]
@@ -69,6 +71,11 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+            Controller\CustomersController::class => function ($services) {
+                return new CustomersController(
+                    $services->get(CustomerTable::class)
+                );
+            }
         ],
     ],
     'view_manager' => [

@@ -1,0 +1,23 @@
+<div class="page-header clearfix">
+    <h2 class="pull-left">Customers</h2>
+    <a href="/customers/new" class="btn btn-success pull-right">
+        Create Customer</a>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <?php foreach ($this->customers as $customer): ?>
+        <tr>
+            <td><?= $customer->getId() ?></td>
+            <td>
+                <a href="/customers/edit/<?= $customer->getId() ?>"><?= $customer->getName() ?></a>
+            </td>
+            <td><?= $customer->getEmail() ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>

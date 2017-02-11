@@ -19,7 +19,7 @@ class Customer extends AbstractEntity
 
     public function getEmail()
     {
-        return $this->emailAddress;
+        return $this->email;
     }
 
     public function setEmail($email)
