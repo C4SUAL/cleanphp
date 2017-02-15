@@ -38,10 +38,12 @@ class CustomersController extends AbstractActionController
         ];
     }
 
-    public function newAction()
+    public function newOrEditAction()
     {
+        $id = $this->params()->fromRoute('id');
+        $customer = $id ? $this->customerRepository->getById($id) : new Customer();
+
         $viewModel = new ViewModel();
-        $customer = new Customer();
 
         if ($this->getRequest()->isPost()) {
             $this->inputFilter->setData(
@@ -57,7 +59,7 @@ class CustomersController extends AbstractActionController
                     ->commit();
 
                 $this->flashMessenger()->addSuccessMessage('Customer saved');
-                $this->redirect()->toUrl('/customers');
+                $this->redirect()->toUrl('/customers/edit/' . $customer->getId());
             } else {
                 $this->hydrator->hydrate(
                     $this->params()->fromPost(),
@@ -67,7 +69,10 @@ class CustomersController extends AbstractActionController
             }
         }
 
-        $viewModel->setVariable('customer', $customer);
+        $viewModel->setVariables([
+            'customer' => $customer,
+            'titleAction' => !empty($customer->getId()) ? 'Edit' : 'New'
+        ]);
 
         return $viewModel;
     }
