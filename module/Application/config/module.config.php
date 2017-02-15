@@ -8,7 +8,10 @@
 namespace Application;
 
 use Application\Controller\CustomersController;
+use Application\View\Helper\ValidationErrors;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
+use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
+use Zend\Hydrator\ClassMethods;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -33,6 +36,18 @@ return [
                     'defaults' => [
                         'controller' => Controller\CustomersController::class,
                         'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'create' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/new',
+                            'defaults' => [
+                                'action' => 'new',
+                            ],
+                        ]
                     ],
                 ]
             ],
@@ -73,7 +88,9 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\CustomersController::class => function ($services) {
                 return new CustomersController(
-                    $services->get(CustomerTable::class)
+                    $services->get(CustomerTable::class),
+                    new CustomerInputFilter(),
+                    new ClassMethods()
                 );
             }
         ],
@@ -94,4 +111,9 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+    'view_helpers' => [
+        'invokables' => [
+            'validationErrors' => ValidationErrors::class
+        ]
+    ]
 ];
