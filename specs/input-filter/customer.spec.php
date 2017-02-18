@@ -5,6 +5,7 @@ use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
 describe('InputFilter\Customer', function () {
     beforeEach(function () {
         $this->inputFilter = new CustomerInputFilter();
+        $this->inputFilter->setData([]);
     });
 
     describe('->isValid()', function () {
@@ -55,12 +56,13 @@ describe('InputFilter\Customer', function () {
                     'email' => $scenario['value']
                 ])->isValid();
 
-                $messages = $this->inputFilter->getMessages()['email'];
 
-                if (is_array($messages)) {
-                    $this->expect($messages)->to->not->be->empty();
+                $messages = null;
+
+                if (isset($this->inputFilter->getMessages()['email']) && is_array($messages)) {
+                    expect($messages)->to->not->be->empty();
                 } else {
-                    $this->expect($messages)->to->be->null();
+                    expect($messages)->to->be->null();
                 }
             }
         });

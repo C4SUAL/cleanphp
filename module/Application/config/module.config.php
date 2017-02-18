@@ -8,8 +8,10 @@
 namespace Application;
 
 use Application\Controller\CustomersController;
+use Application\Controller\OrdersController;
 use Application\View\Helper\ValidationErrors;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
+use CleanPhp\Invoicer\Persistence\Zend\DataTable\OrderTable;
 use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
 use Zend\Hydrator\ClassMethods;
 use Zend\Router\Http\Literal;
@@ -106,6 +108,11 @@ return [
                     $services->get(CustomerTable::class),
                     new CustomerInputFilter(),
                     new ClassMethods()
+                );
+            },
+            OrdersController::class => function ($services) {
+                return new OrdersController(
+                    $services->get(OrderTable::class)
                 );
             }
         ],
