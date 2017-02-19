@@ -10,9 +10,11 @@ namespace Application;
 use Application\Controller\CustomersController;
 use Application\Controller\OrdersController;
 use Application\View\Helper\ValidationErrors;
+use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\OrderTable;
 use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
+use CleanPhp\Invoicer\Service\InputFilter\OrderInputFilter;
 use Zend\Hydrator\ClassMethods;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -113,7 +115,9 @@ return [
             OrdersController::class => function ($services) {
                 return new OrdersController(
                     $services->get(OrderTable::class),
-                    $services->get(CustomerTable::class)
+                    $services->get(CustomerTable::class),
+                    new OrderInputFilter(),
+                    $services->get(OrderHydrator::class)
                 );
             }
         ],
