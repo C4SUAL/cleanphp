@@ -19,6 +19,7 @@ class OrderHydrator implements HydratorInterface
 
     public function extract($object)
     {
+        return $this->wrappedHydrator->extract($object);
     }
 
     public function hydrate(array $data, $order)

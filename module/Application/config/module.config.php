@@ -71,7 +71,7 @@ return [
             'orders' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/orders',
+                    'route' => '/orders[/:action[/:id]]',
                     'defaults' => [
                         'controller' => Controller\OrdersController::class,
                         'action' => 'index',
@@ -112,7 +112,8 @@ return [
             },
             OrdersController::class => function ($services) {
                 return new OrdersController(
-                    $services->get(OrderTable::class)
+                    $services->get(OrderTable::class),
+                    $services->get(CustomerTable::class)
                 );
             }
         ],
