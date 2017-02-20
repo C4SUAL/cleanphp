@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "adefa771ac7e7951f1ce969e0a84fd95",
-    "content-hash": "c6a7be481ae91fd0f128899371c0e1ea",
+    "hash": "4da16babe2374b1bf7ad9ca020146997",
+    "content-hash": "5e7c0f2dc9cb94fd3dc7e7e3b203f829",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -1488,6 +1488,53 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2017-01-21 17:06:35"
+        },
+        {
+            "name": "vnn/keyper",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/varsitynewsnetwork/keyper.git",
+                "reference": "cd6c4cea15d7e4480bc8ca98df77c4f8ba882e84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/varsitynewsnetwork/keyper/zipball/cd6c4cea15d7e4480bc8ca98df77c4f8ba882e84",
+                "reference": "cd6c4cea15d7e4480bc8ca98df77c4f8ba882e84",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Vnn": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Austin Morris",
+                    "email": "austin.morris@gmail.com"
+                },
+                {
+                    "name": "Brian Scaturro",
+                    "email": "scaturrob@gmail.com"
+                }
+            ],
+            "description": "Do things based on the presence of a key",
+            "keywords": [
+                "array",
+                "function"
+            ],
+            "time": "2015-09-24 19:08:48"
         },
         {
             "name": "webmozart/assert",

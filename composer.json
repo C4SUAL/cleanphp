@@ -34,6 +34,7 @@
   },
   "require": {
     "zendframework/zendframework": "^3.0",
-    "zendframework/zend-mvc-plugin-flashmessenger": "^1.0"
+    "zendframework/zend-mvc-plugin-flashmessenger": "^1.0",
+    "vnn/keyper": "^1.3"
   }
 }
