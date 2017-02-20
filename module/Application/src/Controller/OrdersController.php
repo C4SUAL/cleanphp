@@ -81,7 +81,10 @@ class OrdersController extends AbstractActionController
                     $order
                 );
 
-                $this->orderRepository->persist($order)->commit();
+                $this->orderRepository
+                    ->begin()
+                    ->persist($order)
+                    ->commit();
 
                 $this->flashMessenger()->addSuccessMessage('Order Created');
 
