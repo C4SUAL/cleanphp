@@ -8,10 +8,12 @@
 namespace Application;
 
 use Application\Controller\CustomersController;
+use Application\Controller\InvoicesController;
 use Application\Controller\OrdersController;
 use Application\View\Helper\ValidationErrors;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
+use CleanPhp\Invoicer\Persistence\Zend\DataTable\InvoiceTable;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\OrderTable;
 use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
 use CleanPhp\Invoicer\Service\InputFilter\OrderInputFilter;
@@ -119,6 +121,9 @@ return [
                     new OrderInputFilter(),
                     $services->get(OrderHydrator::class)
                 );
+            },
+            InvoicesController::class => function ($services) {
+                return new InvoicesController($services->get(InvoiceTable::class));
             }
         ],
     ],

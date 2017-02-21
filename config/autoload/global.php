@@ -59,7 +59,7 @@ return [
                         $sm->get(\Zend\Db\Adapter\Adapter::class),
                         $hydrator,
                         new Invoice(),
-                        'customers'
+                        'invoices'
                     ),
                     $hydrator
                 );
