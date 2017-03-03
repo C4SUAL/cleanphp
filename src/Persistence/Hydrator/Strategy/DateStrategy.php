@@ -9,9 +9,9 @@ class DateStrategy extends DefaultStrategy
     public function hydrate($value)
     {
         if (is_string($value)) {
-            $date = new \DateTime($value);
+            $value = new \DateTime($value);
         }
-        return $date;
+        return $value;
     }
 
     public function extract($value)

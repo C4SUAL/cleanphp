@@ -14,6 +14,7 @@
 use CleanPhp\Invoicer\Domain\Entity\Customer;
 use CleanPhp\Invoicer\Domain\Entity\Invoice;
 use CleanPhp\Invoicer\Domain\Entity\Order;
+use CleanPhp\Invoicer\Persistence\Hydrator\InvoiceHydrator;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\InvoiceTable;
@@ -53,7 +54,7 @@ return [
             },
             InvoiceTable::class => function ($sm) {
                 $factory = new TableGatewayFactory();
-                $hydrator = new ClassMethods();
+                $hydrator = $sm->get(InvoiceHydrator::class);
                 return new InvoiceTable(
                     $factory->createGateway(
                         $sm->get(\Zend\Db\Adapter\Adapter::class),
@@ -68,6 +69,12 @@ return [
                 return new OrderHydrator(
                     new ClassMethods(),
                     $sm->get(CustomerTable::class)
+                );
+            },
+            InvoiceHydrator::class => function ($sm) {
+                return new InvoiceHydrator(
+                    new ClassMethods(),
+                    $sm->get(OrderTable::class)
                 );
             }
         ]
