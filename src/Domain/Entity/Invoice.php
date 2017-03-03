@@ -3,8 +3,19 @@ namespace CleanPhp\Invoicer\Domain\Entity;
 
 class Invoice extends AbstractEntity
 {
+    /**
+     * @var Order
+     */
     protected $order;
+
+    /**
+     * @var \DateTime
+     */
     protected $invoiceDate;
+
+    /**
+     * @var float
+     */
     protected $total;
 
     public function getOrder()
