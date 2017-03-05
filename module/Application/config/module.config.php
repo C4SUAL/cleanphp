@@ -13,6 +13,9 @@ use Application\Controller\OrdersController;
 use Application\View\Helper\ValidationErrors;
 use CleanPhp\Invoicer\Domain\Factory\InvoiceFactory;
 use CleanPhp\Invoicer\Domain\Service\InvoicingService;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\CustomerRepository;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\InvoiceRepository;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\OrderRepository;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
 use CleanPhp\Invoicer\Service\InputFilter\OrderInputFilter;
@@ -108,25 +111,25 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\CustomersController::class => function ($services) {
                 return new CustomersController(
-                    $services->get('CustomerRepository'),
+                    $services->get(CustomerRepository::class),
                     new CustomerInputFilter(),
                     new ClassMethods()
                 );
             },
             OrdersController::class => function ($services) {
                 return new OrdersController(
-                    $services->get('OrderRepository'),
-                    $services->get('CustomerRepository'),
+                    $services->get(OrderRepository::class),
+                    $services->get(CustomerRepository::class),
                     new OrderInputFilter(),
                     $services->get(OrderHydrator::class)
                 );
             },
             InvoicesController::class => function ($services) {
                 return new InvoicesController(
-                    $services->get('InvoiceRepository'),
-                    $services->get('OrderRepository'),
+                    $services->get(InvoiceRepository::class),
+                    $services->get(OrderRepository::class),
                     new InvoicingService(
-                        $services->get('OrderRepository'),
+                        $services->get(OrderRepository::class),
                         new InvoiceFactory()
                     )
                 );

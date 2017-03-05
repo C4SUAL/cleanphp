@@ -14,6 +14,10 @@
 use CleanPhp\Invoicer\Domain\Entity\Customer;
 use CleanPhp\Invoicer\Domain\Entity\Invoice;
 use CleanPhp\Invoicer\Domain\Entity\Order;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\CustomerRepository;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\InvoiceRepository;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\OrderRepository;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\RepositoryFactory;
 use CleanPhp\Invoicer\Persistence\Hydrator\InvoiceHydrator;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
 use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
@@ -68,7 +72,7 @@ return [
             OrderHydrator::class => function ($sm) {
                 return new OrderHydrator(
                     new ClassMethods(),
-                    $sm->get(CustomerTable::class)
+                    $sm->get(CustomerRepository::class)
                 );
             },
             InvoiceHydrator::class => function ($sm) {
@@ -76,20 +80,10 @@ return [
                     new ClassMethods(),
                     $sm->get(OrderTable::class)
                 );
-            }
-        ]
-    ],
-    'service_config' => [
-        'factories' => [
-            'OrderHydrator' => function ($sm) {
-                return new OrderHydrator(
-                    new ClassMethods(),
-                    $sm->get('CustomerRepository')
-                );
             },
-            'CustomerRepository' => 'CleanPhp\Invoicer\Persistence\Doctrine\Repository\RepositoryFactory',
-            'InvoiceRepository' => 'CleanPhp\Invoicer\Persistence\Doctrine\Repository\RepositoryFactory',
-            'OrderRepository' => 'CleanPhp\Invoicer\Persistence\Doctrine\Repository\RepositoryFactory',
+            CustomerRepository::class => RepositoryFactory::class,
+            InvoiceRepository::class => RepositoryFactory::class,
+            OrderRepository::class => RepositoryFactory::class,
         ]
     ]
 ];
