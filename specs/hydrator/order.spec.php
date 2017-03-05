@@ -36,7 +36,7 @@ describe('Persistence\Hydrator\OrderHydrator', function () {
             $data = ['customer' => ['id' => 20]];
             $order = new Order();
 
-            $this->repository->getById(20)->willReturn(
+            $this->customerRepository->getById(20)->willReturn(
                 (new Customer())->setId(20)
             );
             $this->hydrator->hydrate($data, $order);
