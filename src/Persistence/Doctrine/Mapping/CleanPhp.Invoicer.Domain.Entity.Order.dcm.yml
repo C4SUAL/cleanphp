@@ -1,0 +1,21 @@
+Cleanphp\Invoicer\Domain\Entity\Order:
+  type: entity
+  table: orders
+    id:
+      id:
+        type: BIGINT
+        genertator:
+          strategy: IDENTITY
+    fields:
+      orderNumber:
+        column: order_number
+        lenght: 20
+      description:
+      total:
+        type: decimal
+        precision: 10
+        scale: 2
+    manyToOne:
+      customer:
+        targetEntity: CleanPhp\Invoicer\Domain\Entity\Customer
+        inversedBy: orders
