@@ -14,9 +14,6 @@ use Application\View\Helper\ValidationErrors;
 use CleanPhp\Invoicer\Domain\Factory\InvoiceFactory;
 use CleanPhp\Invoicer\Domain\Service\InvoicingService;
 use CleanPhp\Invoicer\Persistence\Hydrator\OrderHydrator;
-use CleanPhp\Invoicer\Persistence\Zend\DataTable\CustomerTable;
-use CleanPhp\Invoicer\Persistence\Zend\DataTable\InvoiceTable;
-use CleanPhp\Invoicer\Persistence\Zend\DataTable\OrderTable;
 use CleanPhp\Invoicer\Service\InputFilter\CustomerInputFilter;
 use CleanPhp\Invoicer\Service\InputFilter\OrderInputFilter;
 use Zend\Hydrator\ClassMethods;
@@ -111,25 +108,25 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\CustomersController::class => function ($services) {
                 return new CustomersController(
-                    $services->get(CustomerTable::class),
+                    $services->get('CustomerRepository'),
                     new CustomerInputFilter(),
                     new ClassMethods()
                 );
             },
             OrdersController::class => function ($services) {
                 return new OrdersController(
-                    $services->get(OrderTable::class),
-                    $services->get(CustomerTable::class),
+                    $services->get('OrderRepository'),
+                    $services->get('CustomerRepository'),
                     new OrderInputFilter(),
                     $services->get(OrderHydrator::class)
                 );
             },
             InvoicesController::class => function ($services) {
                 return new InvoicesController(
-                    $services->get(InvoiceTable::class),
-                    $services->get(OrderTable::class),
+                    $services->get('InvoiceRepository'),
+                    $services->get('OrderRepository'),
                     new InvoicingService(
-                        $services->get(OrderTable::class),
+                        $services->get('OrderRepository'),
                         new InvoiceFactory()
                     )
                 );
