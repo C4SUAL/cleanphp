@@ -177,6 +177,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * cleanphp doctrine extension
+         */
+        \Mrkrstphr\LaravelIndoctrinated\DoctrineOrmServiceProvider::class
+
     ],
 
     /*

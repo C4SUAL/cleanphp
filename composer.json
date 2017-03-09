@@ -4,10 +4,17 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mrkrstphr/laravel-indoctrinated.git"
+        }
+    ],
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "mrkrstphr/laravel-indoctrinated": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
