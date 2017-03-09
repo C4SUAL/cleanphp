@@ -1,40 +1,58 @@
 <?php
 
-use Zend\Mvc\Application;
-use Zend\Stdlib\ArrayUtils;
-
 /**
- * This makes our life easier when dealing with paths. Everything is relative
- * to the application root now.
+ * Laravel - A PHP Framework For Web Artisans
+ *
+ * @package  Laravel
+ * @author   Taylor Otwell <taylor@laravel.com>
  */
-chdir(dirname(__DIR__));
 
-// Decline static file requests back to the PHP built-in webserver
-if (php_sapi_name() === 'cli-server') {
-    $path = realpath(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-    if (__FILE__ !== $path && is_file($path)) {
-        return false;
-    }
-    unset($path);
-}
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader for
+| our application. We just need to utilize it! We'll simply require it
+| into the script here so that we don't have to worry about manual
+| loading any of our classes later on. It feels nice to relax.
+|
+*/
 
-// Composer autoloading
-include __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../bootstrap/autoload.php';
 
-if (!class_exists(Application::class)) {
-    throw new RuntimeException(
-        "Unable to load application.\n"
-        . "- Type `composer install` if you are developing locally.\n"
-        . "- Type `vagrant ssh -c 'composer install'` if you are using Vagrant.\n"
-        . "- Type `docker-compose run zf composer install` if you are using Docker.\n"
-    );
-}
+/*
+|--------------------------------------------------------------------------
+| Turn On The Lights
+|--------------------------------------------------------------------------
+|
+| We need to illuminate PHP development, so let us turn on the lights.
+| This bootstraps the framework and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight our users.
+|
+*/
 
-// Retrieve configuration
-$appConfig = require __DIR__ . '/../config/application.config.php';
-if (file_exists(__DIR__ . '/../config/development.config.php')) {
-    $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
-}
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
-// Run the application!
-Application::init($appConfig)->run();
+/*
+|--------------------------------------------------------------------------
+| Run The Application
+|--------------------------------------------------------------------------
+|
+| Once we have the application, we can handle the incoming request
+| through the kernel, and send the associated response back to
+| the client's browser allowing them to enjoy the creative
+| and wonderful application we have prepared for them.
+|
+*/
+
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
+
+$response->send();
+
+$kernel->terminate($request, $response);
