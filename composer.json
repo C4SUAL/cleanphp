@@ -14,7 +14,13 @@
         "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "mrkrstphr/laravel-indoctrinated": "dev-master"
+        "mrkrstphr/laravel-indoctrinated": "dev-master",
+        "vnn/keyper": "^1.3",
+        "zendframework/zend-hydrator": "^2.2",
+        "zendframework/zend-i18n": "^2.7",
+        "zendframework/zend-inputfilter": "^2.7",
+        "zendframework/zend-servicemanager": "^3.3",
+        "zendframework/zend-stdlib": "^3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
