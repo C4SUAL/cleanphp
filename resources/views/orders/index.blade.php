@@ -28,7 +28,7 @@
             </td>
             <td>{{{ $order->getDescription() }}}</td>
             <td class="text-right">
-                &pound; {{ number_format($order->getTotal(), 2) }}
+                &pound;{{ number_format($order->getTotal(), 2) }}
             </td>
         </tr>
         <?php endforeach; ?> </table>
