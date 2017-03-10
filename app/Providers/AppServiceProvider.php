@@ -3,10 +3,14 @@
 namespace App\Providers;
 
 use CleanPhp\Invoicer\Domain\Repository\CustomerRepositoryInterface;
+use CleanPhp\Invoicer\Domain\Repository\InvoiceRepositoryInterface;
 use CleanPhp\Invoicer\Domain\Repository\OrderRepositoryInterface;
 use CleanPhp\Invoicer\Persistence\Doctrine\Repository\CustomerRepository;
+use CleanPhp\Invoicer\Persistence\Doctrine\Repository\InvoiceRepository;
 use CleanPhp\Invoicer\Persistence\Doctrine\Repository\OrderRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\ServiceProvider;
+use Mrkrstphr\LaravelIndoctrinated\DoctrineOrmServiceProvider;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\HydratorInterface;
 
@@ -30,10 +34,19 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
+            InvoiceRepositoryInterface::class,
+            function ($app) {
+                return new InvoiceRepository(
+                    $app[EntityManagerInterface::class]
+                );
+            }
+        );
+
+        $this->app->bind(
             OrderRepositoryInterface::class,
             function ($app) {
                 return new OrderRepository(
-                    $app['Doctrine\ORM\EntityManagerInterface']
+                    $app[EntityManagerInterface::class]
                 );
             }
         );
@@ -42,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
             CustomerRepositoryInterface::class,
             function ($app) {
                 return new CustomerRepository(
-                    $app['Doctrine\ORM\EntityManagerInterface']
+                    $app[EntityManagerInterface::class]
                 );
             }
         );

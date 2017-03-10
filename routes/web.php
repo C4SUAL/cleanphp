@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
+/*
+ * Customers
+ */
 Route::match(
     ['get'],
     '/customers',
@@ -33,6 +36,9 @@ Route::match(
     'CustomersController@newOrEditAction'
 );
 
+/*
+ * Orders
+ */
 Route::get('/orders', 'OrdersController@indexAction');
 
 Route::match(
@@ -42,3 +48,11 @@ Route::match(
 );
 
 Route::get('/orders/view/{id}', 'OrdersController@viewAction');
+
+/*
+ * Invoices
+ */
+Route::get('/invoices', 'InvoicesController@indexAction');
+Route::get('/invoices/view/{id}', 'InvoicesController@viewAction');
+Route::get('/invoices/new', 'InvoicesController@newAction');
+Route::post('/invoices/generate', 'InvoicesController@generateAction');
