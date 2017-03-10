@@ -32,3 +32,13 @@ Route::match(
     '/customers/edit/{id}',
     'CustomersController@newOrEditAction'
 );
+
+Route::get('/orders', 'OrdersController@indexAction');
+
+Route::match(
+    ['get', 'post'],
+    '/orders/new',
+    'OrdersController@newAction'
+);
+
+Route::get('/orders/view/{id}', 'OrdersController@viewAction');
